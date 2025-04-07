@@ -94,6 +94,18 @@ resource "aws_iam_role_policy_attachment" "attach_master_policy" {
   policy_arn = aws_iam_policy.k8s_master_policy.arn
 }
 
+# Attach AmazonEC2FullAccess managed policy
+resource "aws_iam_role_policy_attachment" "master_attach_ec2_full_access" {
+  role       = aws_iam_role.k8s_master_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
+}
+
+# Attach AdministratorAccess managed policy
+resource "aws_iam_role_policy_attachment" "master_attach_admin_access" {
+  role       = aws_iam_role.k8s_master_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
+}
+
 # IAM Role for Worker Node
 resource "aws_iam_role" "k8s_worker_role" {
   name = "k8s-cluster-iam-worker-role"
@@ -130,6 +142,18 @@ resource "aws_iam_role_policy_attachment" "attach_worker_policy" {
   policy_arn = aws_iam_policy.k8s_worker_policy.arn
 }
 
+# Attach AmazonEC2FullAccess managed policy
+resource "aws_iam_role_policy_attachment" "attach_ec2_full_access" {
+  role       = aws_iam_role.k8s_worker_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
+}
+
+# Attach AdministratorAccess managed policy
+resource "aws_iam_role_policy_attachment" "attach_admin_access" {
+  role       = aws_iam_role.k8s_worker_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
+}
+
 
 resource "aws_security_group" "k8s_sg" {
   name        = "k8s-master-sg"
@@ -137,16 +161,17 @@ resource "aws_security_group" "k8s_sg" {
   vpc_id      = aws_vpc.k8s_vpc.id
 
   ingress {
-    description = "Allow HTTP"
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
- ingress {
     description = "SSH"
     from_port   = 22
     to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description = "Allow HTTP"
+    from_port   = 80
+    to_port     = 80
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
