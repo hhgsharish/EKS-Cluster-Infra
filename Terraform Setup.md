@@ -14,9 +14,6 @@ Open Visual Studio and install terraform official plugin:
 
 create a directory for Terraform and create main.tf file there:
 
-![image](https://github.com/user-attachments/assets/7e1fff5e-8ba2-4601-845c-6ef761c9a911)
-
-
 Terraform Commands:
 terraform init - Initializes the Terraform working directory by downloading required provider plugins.
 terraform plan - Shows the changes Terraform will make before applying them.
