@@ -1,4 +1,4 @@
-**Install Kubernetes with AWS Cloud Provider**
+#**Install Kubernetes with AWS Cloud Provider**
 
 Terrafrom code to create infrastructure from the below link
 
@@ -39,7 +39,7 @@ To Run on Master and Worker Nodes:
   
     kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
 
-**Only on Worker**
+#Only on Worker
 
 **Do not run this: just take IP, token, and hash value for the next command**
     kubeadm join 10.0.0.18:6443 --token a7bnl2.jubi0wib4slhx0cg \
@@ -49,7 +49,7 @@ To Run on Master and Worker Nodes:
 
 **Add the token, hash, IP, host name to command and Run**
 
-cat << EOF > /etc/kubernetes/node.yml
+**cat << EOF > /etc/kubernetes/node.yml**
 ---
 apiVersion: kubeadm.k8s.io/v1beta3
 kind: JoinConfiguration
