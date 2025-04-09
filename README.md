@@ -7,42 +7,40 @@ https://github.com/yasapurnama/Install-Kubernetes-with-AWS-Cloud-Provider
 **This will create Master and Worker Nodes:**
 -Setup Kubernetes:
 To Run on Master and Worker Nodes:
-1.
-  TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"`
+1.    TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"`
 
-2.
-   hostnamectl set-hostname $(curl -s http://169.254.169.254/latest/meta-data/local-hostname -H "X-aws-ec2-metadata-token: $TOKEN")
+2.    hostnamectl set-hostname $(curl -s http://169.254.169.254/latest/meta-data/local-hostname -H "X-aws-ec2-metadata-token: $TOKEN")
 
-3. Save the below files and run 
-  bash ./container.sh
+3.     Save the below files and run
 
-4.
-  bash ./kube.sh
+        bash ./container.sh
 
-5.
-  Save this in vi /etc/kubernetes/aws.yml 
+5.      bash ./kube.sh
 
-# init cluster
-6.
-   kubeadm init --config /etc/kubernetes/aws.yml
+6.  Save the file aws.yml in /etc/kubernetes/aws.yml
 
-  **Join Command from the above command and keep it**
+    vi /etc/kubernetes/aws.yml 
+
+**init cluster**
+6.  kubeadm init --config /etc/kubernetes/aws.yml
+
+**Join Command from the above command and keep it**
 
 7.
-mkdir -p $HOME/.kube
-sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-sudo chown $(id -u):$(id -g) $HOME/.kube/config
-export KUBECONFIG=/etc/kubernetes/admin.conf
-kubectl apply -k 'github.com/kubernetes/cloud-provider-aws/examples/existing-cluster/base/?ref=master'
-kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
+    mkdir -p $HOME/.kube
+    sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+    sudo chown $(id -u):$(id -g) $HOME/.kube/config
+    export KUBECONFIG=/etc/kubernetes/admin.conf
+    kubectl apply -k 'github.com/kubernetes/cloud-provider-aws/examples/existing-cluster/base/?ref=master'
+    kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
 
 **Only on Worker**
 
 **Do not run this: just take IP, token, and hash value for the next command**
-kubeadm join 10.0.0.18:6443 --token a7bnl2.jubi0wib4slhx0cg \
+    kubeadm join 10.0.0.18:6443 --token a7bnl2.jubi0wib4slhx0cg \
         --discovery-token-ca-cert-hash sha256:902124cebdcf5d44bfc8891df0eb92033fa3ff93554a1788d9eb4423bbd
 **Get IP from Worker node**
-hostnme -f 
+    hostnme -f 
 
 **Add the token, hash, IP, host name to command and Run**
 
@@ -63,7 +61,6 @@ nodeRegistration:
 EOF
 
 **Run this**
-kubeadm join --config /etc/kubernetes/node.yml
-
+  kubeadm join --config /etc/kubernetes/node.yml
 
 #Kubernetes cluster setup ends here
