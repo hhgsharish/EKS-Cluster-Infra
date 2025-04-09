@@ -28,10 +28,15 @@ To Run on Master and Worker Nodes:
 
 7.
     mkdir -p $HOME/.kube
+  
     sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  
     sudo chown $(id -u):$(id -g) $HOME/.kube/config
+  
     export KUBECONFIG=/etc/kubernetes/admin.conf
+  
     kubectl apply -k 'github.com/kubernetes/cloud-provider-aws/examples/existing-cluster/base/?ref=master'
+  
     kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
 
 **Only on Worker**
