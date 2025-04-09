@@ -1,8 +1,8 @@
-#**Terraform installation steps -Windows:**
+**#**Terraform installation steps -Windows:****
 
 #Launch windows powershell in administrator mode
 
-#nstall chocolaty if it does not exists.
+**#Install chocolaty if it does not exists.**
 
 1.
 Set-ExecutionPolicy Bypass -Scope Process -Force; `
